@@ -5,12 +5,10 @@ services:
   - type: web
     name: testpilot-ai
     runtime: docker
-    plan: starter
+    # Free plan: no persistent disk, so /data (history, screenshots, audit log)
+    # resets on every deploy or restart, and the service sleeps when idle.
+    plan: free
     healthCheckPath: /api/health
-    disk:
-      name: testpilot-data
-      mountPath: /data
-      sizeGB: 1
     envVars:
       - key: TESTPILOT_PUBLIC_DEPLOYMENT
         value: "true"
